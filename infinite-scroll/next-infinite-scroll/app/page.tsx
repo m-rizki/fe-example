@@ -1,10 +1,9 @@
-import ProductCard, { Product } from "@/components/example/product-card";
+import ProductCard, { Product } from "@/components/product-card";
+import MoreProducts from "@/components/more-products";
 import { getProducts } from "./action";
 
 export default async function Home() {
   const data = await getProducts({ skip: 0 });
-
-  console.log(data);
 
   return (
     <main className="max-w-7xl lg:max-w-5xl mx-auto px-4 py-4">
@@ -16,6 +15,7 @@ export default async function Home() {
             <ProductCard product={item} key={item.id} />
           ))}
         </div>
+        <MoreProducts />
       </section>
     </main>
   );

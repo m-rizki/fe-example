@@ -1,13 +1,12 @@
 "use server";
 
-// The use server directive designates a function or file to be executed on the server side.
-// server action can return jsx server component, you can rename this to action.tsx
-
-const LIMIT = 12;
+const PRODUCTS_LIMIT = 12;
 
 export async function getProducts({ skip }: { skip: number }) {
+  // The use server directive designates a function or file to be executed on the server side.
+  // server action can return jsx server component, you can rename this to action.tsx
   const response = await fetch(
-    `https://dummyjson.com/products?limit=${LIMIT}&skip=${skip}`
+    `https://dummyjson.com/products?limit=${PRODUCTS_LIMIT}&skip=${skip}`
   );
 
   const data = await response.json();

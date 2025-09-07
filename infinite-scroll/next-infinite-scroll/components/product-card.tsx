@@ -20,6 +20,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           alt={product.title}
           width={200}
           height={200}
+          priority
         />
       </figure>
       <div className="card-body">

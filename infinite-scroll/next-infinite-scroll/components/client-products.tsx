@@ -4,6 +4,14 @@
 // But you can add some client interaction if you wrap the server component with client component
 // for example in <ProductCard/> -> <ClientProducts>{children}</ClientProducts>
 
+/**
+ * another example -> using framer motion and wrap the server component ProductCard to this
+ *
+ * "use client";
+ * import { motion } from "framer-motion";
+ * export const MotionDiv = motion.div;
+ */
+
 import { ReactNode, useState } from "react";
 
 export default function ClientProducts({ children }: { children: ReactNode }) {
