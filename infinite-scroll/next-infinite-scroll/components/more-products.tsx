@@ -15,14 +15,12 @@ export default function MoreProducts() {
   const { ref, inView } = useInView();
 
   const [data, setData] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(false); // UI feedback
 
   const loadMore = useCallback(async () => {
     if (loadingRef.current) return;
     if (!hasMoreRef.current) return;
 
     loadingRef.current = true;
-    setLoading(true);
 
     try {
       const res = await getProducts({ skip: skipRef.current });
@@ -34,7 +32,6 @@ export default function MoreProducts() {
         hasMoreRef.current = false; // no more data, stop api call
       }
     } finally {
-      setLoading(false);
       loadingRef.current = false;
     }
   }, []);
@@ -54,11 +51,11 @@ export default function MoreProducts() {
       </div>
 
       <div className="flex justify-center" ref={ref}>
-        {inView && loading && (
+        {inView && loadingRef && (
           <span className="loading loading-spinner loading-xl"></span>
         )}
 
-        {!loading && !hasMoreRef.current && data.length > 0 && (
+        {!loadingRef && !hasMoreRef.current && data.length > 0 && (
           <span className="text-sm text-gray-500">End of the list</span>
         )}
       </div>
