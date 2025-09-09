@@ -18,7 +18,7 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader(_: Route.LoaderArgs) {
   const res = await fetch(
-    `${ENDPOINTS.PRODUCTS}?limit=${LIMIT}&skip=${0}&select=title,price,thumbnail`
+    `${ENDPOINTS.PRODUCTS}?skip=${0}&limit=${LIMIT}&select=title,price,thumbnail`
   );
 
   if (!res.ok) {
@@ -38,12 +38,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     error,
     isError,
   } = useInfiniteQuery<ProductsResponse>({
-    // queryKey: ["products", "infinite", "dummyjson", LIMIT],
     queryKey: ["products"],
     queryFn: async ({ pageParam = 0 }) => {
-      // pageParam as "skip" (offset)
       const res = await fetch(
-        `${ENDPOINTS.PRODUCTS}?limit=${LIMIT}&skip=${pageParam}&select=title,price,thumbnail`
+        `${ENDPOINTS.PRODUCTS}?skip=${pageParam}&limit=${LIMIT}&select=title,price,thumbnail`
       );
 
       if (!res.ok) {
@@ -59,14 +57,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       const nextSkip = lastPage.skip + lastPage.limit;
       return nextSkip < lastPage.total ? nextSkip : undefined;
     },
-    initialPageParam: 0,
     // seed data from SSR
+    initialPageParam: 0,
     initialData: {
       pages: [loaderData.firstPage],
       pageParams: [0],
     },
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
     retry: 0,
   });
 
@@ -79,7 +75,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   useEffect(() => {
     if (
-      !isError && // cuma menambahkan ini, sisanya tetap sama
+      !isError &&
       inView &&
       hasNextPage &&
       !isFetchingNextPage &&
