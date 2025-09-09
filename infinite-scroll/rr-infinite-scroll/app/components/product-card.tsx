@@ -1,4 +1,4 @@
-import type { Product } from "~/lib/products.server";
+import type { Product } from "~/lib/types";
 
 interface ProductCardProps {
   product: Product;

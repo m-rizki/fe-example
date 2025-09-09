@@ -1,5 +1,5 @@
 export const PRODUCTS_LIMIT = 12;
 
-export const ENPOINTS = {
+export const ENDPOINTS = {
   PRODUCTS: "https://dummyjson.com/products",
 };
